@@ -1,11 +1,16 @@
 import axios  from "axios";
 import { MessageType } from "../../types/messageType";
 
-export const getMessages: () => Promise<Array<MessageType>> = async () => {
-    const r = await axios.get('/api/message')
-        .catch(function (error) {
-            console.log(error);
-        });
-    // @ts-ignore
-    return r.data.messages as Array<MessageType>
+export interface Response {
+        messages: Array<MessageType>
+}
+
+export const getMessages = async () => {
+
+    try {
+        const response = await axios.get<Response>('/api/message');
+        return response.data.messages;
+    } catch (err) {
+        throw new Error('error');
+    }
 }
