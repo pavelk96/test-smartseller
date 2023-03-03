@@ -2,6 +2,7 @@ import { Server } from "socket.io";
 import type { Socket as NetSocket } from 'net'
 import type { Server as HTTPServer } from 'http'
 import { NextApiRequest, NextApiResponse } from "next";
+import { SocketActions } from "../../enums/socketActions";
 
 interface SocketServer extends HTTPServer {
   io?: Server | undefined
@@ -26,12 +27,12 @@ export default function SocketHandler(req: NextApiRequest, res: NextApiResponseW
 
   const onConnection = (socket) => {
 
-    socket.on("joinedUser", (msg) => {
-      socket.broadcast.emit("newUserConnected", msg);
+    socket.on(SocketActions.joinedUser, (msg) => {
+      socket.broadcast.emit(SocketActions.newUserConnected, msg);
     });
 
-    socket.on("createdMessage", (msg) => {
-      socket.broadcast.emit("newIncomingMessage", msg);
+    socket.on(SocketActions.createdMessage, (msg) => {
+      socket.broadcast.emit(SocketActions.newIncomingMessage, msg);
     });
 
   }

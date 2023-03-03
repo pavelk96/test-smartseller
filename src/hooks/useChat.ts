@@ -1,5 +1,6 @@
-import { SocketActions } from "../enums/socketActions";
 import { Socket } from "socket.io";
+
+import { SocketActions } from "../enums/socketActions";
 import { MessageType } from "../types/messageType";
 
 export const useChat = (socket: Socket) => {
