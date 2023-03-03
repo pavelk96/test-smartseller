@@ -1,0 +1,1 @@
+export const validateUserName = (userName: string): boolean => userName.trim().length > 0 && userName !== "Info";
